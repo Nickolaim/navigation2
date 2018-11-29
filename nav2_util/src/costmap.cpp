@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+BREAK HERE COMPILER, PLEASE
+
 #include <vector>
 #include <algorithm>
 #include "nav2_util/costmap.hpp"
