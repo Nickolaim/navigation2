@@ -65,20 +65,8 @@ RUN tar -xjf ros2-package-linux-x86_64.tar.bz2
 
 # clone navigation2 repo
 WORKDIR /ros2_ws/navigation2_ws/src
-RUN git clone https://github.com/ros-planning/navigation2.git
-
-# change to correct branch if $BRANCH is not = master
-WORKDIR /ros2_ws/navigation2_ws/src/navigation2
-ARG PULLREQ=false
-RUN echo "pullreq is $PULLREQ"
-RUN if [ "$PULLREQ" == "false" ]; \
-    then \
-      echo "No pull request number given - defaulting to master branch"; \
-    else \
-      git fetch origin pull/$PULLREQ/head:pr_branch; \
-      git checkout pr_branch; \
-    fi
-
+COPY ./ navigation2/
+RUN ls -l
 # Download dependencies
 RUN echo "Downloading the ROS 2 navstack dependencies workspace"
 WORKDIR /ros2_ws/navstack_dependencies_ws/src
@@ -95,4 +83,6 @@ WORKDIR /ros2_ws/navigation2_ws
 RUN rosdep install -q -y -r --from-paths src --ignore-src --rosdistro $ROS2_DISTRO --as-root=apt:false --as-root=pip:false
 RUN (. /ros2_ws/navstack_dependencies_ws/install/setup.bash && colcon build --symlink-install)
 
+CMD ["bash"]
+# change to correct branch if $BRANCH is not = master
 CMD ["bash"]
