@@ -68,6 +68,8 @@ WORKDIR /ros2_ws/navigation2_ws/src
 ARG USER=ros-planning
 RUN git clone https://github.com/$USER/navigation2.git
 
+ARG CACHE_INVALIDATOR=foo
+
 # change to correct branch if $BRANCH is not = master
 WORKDIR /ros2_ws/navigation2_ws/src/navigation2
 ARG PULLREQ=false
